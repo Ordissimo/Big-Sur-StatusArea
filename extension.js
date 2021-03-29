@@ -160,13 +160,6 @@ function applySettings() {
 function setup(enabledItems, centerItems, arrayIndicators, name, indicator) {
     if (!indicator) return;
     let index = enabledItems.indexOf(name);
-    if (name == "notification") {
-        if (index == -1) {
-            let banner = Convenience.getSettingsNotif();
-	    banner.set_boolean('show-banners', false);
-	    delete banner;
-        }
-    }
     let valid = index != -1;
     if (valid) {
         arrayIndicators[index] = indicator;

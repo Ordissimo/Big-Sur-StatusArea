@@ -47,9 +47,10 @@ var UserIndicator = new Lang.Class({
             y_align: Clutter.ActorAlign.CENTER,
             style_class: "panel-status-menu-box"
         });
-
-        this._power_gicon = Gio.icon_new_for_string(`${Me.path}/icons/system-shutdown-symbolic.svg`);
-        this._powerIcon = new St.Icon({ icon_name: 'avatar-default-symbolic', style_class: "system-status-icon"});
+	    
+        this._powerIcon = new St.Icon({ 
+	icon_name: 'avatar-default-symbolic', 
+	style_class: "system-status-icon"});
 
         if (this._screencast)
              this.box.add_child(this._screencast);
@@ -230,8 +231,12 @@ var UserIndicator = new Lang.Class({
             text: _("Power Off"),
             y_align: Clutter.ActorAlign.CENTER
         });
-        
-        let power_icon = new St.Icon({ gicon: this._power_gicon });
+
+	let power_icon = new St.Icon({
+            icon_name: "system-shutdown-symbolic",
+            style_class: "system-status-icon",
+            icon_size: PANEL_ICON_SIZE
+        });
         power_icon.icon_size = PANEL_ICON_SIZE;
 
         power.actor.add_actor(power_icon);

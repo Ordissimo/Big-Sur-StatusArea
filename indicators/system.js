@@ -187,7 +187,7 @@ var UserIndicator = new Lang.Class({
             y_align: Clutter.ActorAlign.CENTER
         });
         let suspend_icon = new St.Icon({
-            icon_name: "bed-symbolic",
+            icon_name: "media-suspend-symbolic",
             style_class: "system-status-icon",
             icon_size: PANEL_ICON_SIZE
         });

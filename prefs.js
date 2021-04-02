@@ -477,7 +477,15 @@ var IndicatorsPage = new Lang.Class({
         this.buildList();
     },
     changeEnable: function (object, p, index) {
-        this.menuItems.changeEnable(index, object.active)
+        let items = this.menuItems.getItems();
+        let item = items[index];
+
+        if (_(item["label"]) == _("Calendar") &&
+           !this.settings.get_boolean("separate-date-and-notification")) {
+            object.set_active(false);
+       }
+       else
+            this.menuItems.changeEnable(index, object.active);
     },
     enableCenter: function (object, index) {
         this.menuItems.changePosition(index, object.get_active());
@@ -499,19 +507,12 @@ var IndicatorsPage = new Lang.Class({
     },
     separatingEnable: function (object, p) {
         if (object.active) {
-	    for(let x = 0; x < this.labelsArray.length; x++) {
-		 log ("WWWWWWWWWWWWWWWWWW " + this.labelsArray[x])
-		 if (this.labelsArray[x] == _("Calendar")) {
-                     this.indicatorsArray[x].show();
-		 }
-	    }
             this.settings.set_boolean("separate-date-and-notification" , true);
 	}
 	else {
 	    for(let x = 0; x < this.labelsArray.length; x++) {
 		 log ("XXXXXXXXXXXXXXXXXXXXX " + this.labelsArray[x])
 		 if (this.labelsArray[x] == _("Calendar")) {
-                     this.indicatorsArray[x].hide();
                      this.statusArray[x].set_active(false);
 		 }
 	    }

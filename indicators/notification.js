@@ -58,7 +58,7 @@ var NotificationIndicator = new Lang.Class({
     _init: function () {
         this.parent("NotificationIndicator");
 
-        // settingsChanged = this.settings.connect("changed::separate-date-and-notification", this.applySettings);
+        settingsChanged = this.settings.connect("changed::separate-date-and-notification", this.applySettings);
 
 	this.prepareCalendar();
         this._messageList = Main.panel.statusArea.dateMenu._messageList;
@@ -147,6 +147,7 @@ var NotificationIndicator = new Lang.Class({
     },
     addCalendar: function () {
         if (!this.settings.get_boolean("separate-date-and-notification")) {
+		this._vboxd.show();
 		this._vboxd.add_actor(this._date);
 		this._vboxd.add_actor(this._calendar);
 		this._vboxd.add_actor(this._displaysSection);
@@ -163,6 +164,8 @@ var NotificationIndicator = new Lang.Class({
 		    }
 		});
         }
+	else
+	        this._vboxd.hide();
     },
     removeCalendar: function () {
         if (!this.settings.get_boolean("separate-date-and-notification")) {
@@ -180,7 +183,7 @@ var NotificationIndicator = new Lang.Class({
 
     destroy: function () {
         this._closeButton.disconnect(this._hideIndicator);
-        // this.settings.disconnect(settingsChanged);
+        this.settings.disconnect(settingsChanged);
 	this.removeCalendar();
         this._vbox.remove_child(this._messageList);
         this._messageListParent.add_actor(this._messageList);
@@ -197,7 +200,7 @@ var MessagesIndicator = new Lang.Class({
             style_class: 'system-status-icon'
         });
 
-        this._icon.gicon = Gio.icon_new_for_string(`${Me.path}/icons/${NoNotifications}.svg`);
+	this._icon.icon_name = NoNotifications;
 
         this.actor = this._icon;
 
@@ -227,7 +230,7 @@ var MessagesIndicator = new Lang.Class({
             count += source.count;
         });
        
-        if (this.settings.get_boolean("separate-date-and-notification")) {
+        if (!this.settings.get_boolean("separate-date-and-notification")) {
             icon = (count > 0) ? NewNotifications : NoNotifications;
             this._icon.icon_name = icon;
 	}

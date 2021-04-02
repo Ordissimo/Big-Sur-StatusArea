@@ -60,7 +60,7 @@ var NetworkIndicator = new Lang.Class({
         this._rfkill._indicator.hide();
 
         this._arrowIcon = new St.Icon({
-            icon_name: "go-bottom",
+            icon_name: "airplane-mode-symbolic",
             style_class: "system-status-icon"
         });
 

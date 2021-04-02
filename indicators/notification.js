@@ -25,8 +25,8 @@ const _ = Gettext.gettext;
 const Extension = imports.misc.extensionUtils.getCurrentExtension();
 const CustomButton = Extension.imports.indicators.button.CustomButton;
 
-const NoNotifications = 'notifications-symbolic';
-const NewNotifications = 'notification-new-symbolic';
+const NoNotifications = 'task-past-due-symbolic';
+const NewNotifications = 'task-due-symbolic';
 
 
 var NotificationIndicator = new Lang.Class({
@@ -104,7 +104,7 @@ var MessagesIndicator = new Lang.Class({
             style_class: 'system-status-icon'
         });
 
-        this._icon.gicon = Gio.icon_new_for_string(`${Me.path}/icons/${NoNotifications}.svg`);
+	this._icon.icon_name = NoNotifications;
 
         this.actor = this._icon;
 
@@ -135,7 +135,7 @@ var MessagesIndicator = new Lang.Class({
 
         let icon = (count > 0) ? NewNotifications : NoNotifications;
 
-        this._icon.gicon = Gio.icon_new_for_string(`${Me.path}/icons/${icon}.svg`);
+        this._icon.icon_name = icon;
         this.actor = this._icon;
     },
     destroy: function () {

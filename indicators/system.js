@@ -140,8 +140,8 @@ var UserIndicator = new Lang.Class({
             y_align: Clutter.ActorAlign.CENTER
         });
         
-        this._switchuser_gicon = Gio.icon_new_for_string(`${Me.path}/icons/switch-user-symbolic.svg`);
-        let switchuser_icon = new St.Icon({ gicon: this._switchuser_gicon });
+        this._switchuser_gicon = 'system-switch-user-symbolic';
+        let switchuser_icon = new St.Icon({ icon_name: this._switchuser_gicon });
         switchuser_icon.icon_size = PANEL_ICON_SIZE;
 
         switchuser.actor.add_actor(switchuser_icon);
@@ -163,8 +163,8 @@ var UserIndicator = new Lang.Class({
             y_align: Clutter.ActorAlign.CENTER
         });
 
-        this._orientation_icon_gicon = Gio.icon_new_for_string(`${Me.path}/icons/orientation-lock-symbolic.svg`);
-        let orientation_icon = new St.Icon({ gicon: this._orientation_icon_gicon });
+        this._orientation_icon_icon = 'rotation-locked-symbolic';;
+        let orientation_icon = new St.Icon({ icon_name: this._orientation_icon_icon });
         orientation_icon.icon_size = PANEL_ICON_SIZE;
 
         orientation.actor.add_actor(orientation_icon);

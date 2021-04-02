@@ -47,8 +47,8 @@ var BluetoothIndicator = new Lang.Class({
             return;
         }
         
-        this._bluetooth_active_gicon = Gio.icon_new_for_string(`${Me.path}/icons/bluetooth-active-symbolic.svg`);
-        this._bluetooth_disabled_gicon = Gio.icon_new_for_string(`${Me.path}/icons/bluetooth-disabled-symbolic.svg`);
+        this._bluetooth_active_icon_name = 'bluetooth-active-symbolic';
+        this._bluetooth_disabled_icon_name = 'bluetooth-disabled-symbolic';
         this._bluetooth_paired_gicon = Gio.icon_new_for_string(`${Me.path}/icons/bluetooth-paired-symbolic.svg`);
 
         this._bluetooth.remove_actor(this._bluetooth._indicator);
@@ -56,7 +56,7 @@ var BluetoothIndicator = new Lang.Class({
         this._bluetooth._item.menu._setSettingsVisibility(false);
 
         this._indicator = new St.Icon({style_class: "system-status-icon"});
-        this._indicator.gicon = this._bluetooth_active_gicon;
+        this._indicator.icon_name = 'bluetooth-active-symbolic';
 
         this.box.add_child(this._indicator);
       
@@ -105,12 +105,12 @@ var BluetoothIndicator = new Lang.Class({
         } else if (nConnectedDevices == -1) {
             // Off
             this._bluetooth._item.actor.show();
-            this._indicator.gicon = this._bluetooth_disabled_gicon;
-            this._bluetooth._item.icon.gicon = this._bluetooth_disabled_gicon;
+	    this._indicator.icon_name = 'bluetooth-disabled-symbolic';	
+            this._bluetooth._item.icon.icon_name = 'bluetooth-disabled-symbolic';	
         } else {
             // On
-            this._indicator.gicon = this._bluetooth_active_gicon;
-            this._bluetooth._item.icon.gicon = this._bluetooth_active_gicon;
+            this._indicator.icon_name = 'bluetooth-active-symbolic';
+            this._bluetooth._item.icon.icon_name = 'bluetooth-active-symbolic';
         }
 
     },

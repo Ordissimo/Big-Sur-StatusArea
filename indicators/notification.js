@@ -26,8 +26,8 @@ const _ = Gettext.gettext;
 const Extension = imports.misc.extensionUtils.getCurrentExtension();
 const CustomButton = Extension.imports.indicators.button.CustomButton;
 
-const NoNotifications = 'notifications-symbolic';
-const NewNotifications = 'notification-new-symbolic';
+const NoNotifications = 'task-past-due-symbolic';
+const NewNotifications = 'task-due-symbolic';
 
 
 var CalendarColumnLayout2 = GObject.registerClass(
@@ -70,7 +70,7 @@ var NotificationIndicator = new Lang.Class({
         this._messageListParent = this._messageList.get_parent();
         this._messageListParent.remove_actor(this._messageList);
 
-        this._indicator = new MessagesIndicator(Main.panel.statusArea.dateMenu._indicator._sources);
+        this._indicator = new MessagesIndicator(Main.panel.statusArea.dateMenu._indicator._sources, this.settings);
 
         this.box.add_child(this._indicator.actor);
         this.hbox = new St.BoxLayout({
@@ -191,8 +191,8 @@ var NotificationIndicator = new Lang.Class({
 var MessagesIndicator = new Lang.Class({
     Name: 'MessagesIndicator',
 
-    _init: function (src) {
-
+    _init: function (src, settings) {
+        this.settings = settings;
         this._icon = new St.Icon({
             style_class: 'system-status-icon'
         });
@@ -222,13 +222,25 @@ var MessagesIndicator = new Lang.Class({
     },
     _updateCount: function () {
         let count = 0;
+	let icon = null
         this._sources.forEach((source) => {
             count += source.count;
         });
+       
+        if (this.settings.get_boolean("separate-date-and-notification")) {
+            icon = (count > 0) ? NewNotifications : NoNotifications;
+            this._icon.icon_name = icon;
+	}
+	else {
+	    if (count > 0) {
+                 this._icon.icon_name = 'media-record-symbolic';
+	    }
+	    else {
+                 icon = 'notifications-symbolic';
+                 this._icon.gicon = Gio.icon_new_for_string(`${Me.path}/icons/${icon}.svg`);
+	    }
+	}
 
-        let icon = (count > 0) ? NewNotifications : NoNotifications;
-
-        this._icon.gicon = Gio.icon_new_for_string(`${Me.path}/icons/${icon}.svg`);
         this.actor = this._icon;
     },
     destroy: function () {

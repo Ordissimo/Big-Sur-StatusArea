@@ -217,6 +217,7 @@ var MessagesIndicator = new Lang.Class({
         sources.forEach((source) => {
             this._onSourceAdded(null, source);
         });
+        this._updateCount()
     },
     _onSourceAdded: function (tray, source) {
         source.connect('notify::count', () => this._updateCount());
@@ -230,7 +231,7 @@ var MessagesIndicator = new Lang.Class({
             count += source.count;
         });
        
-        if (!this.settings.get_boolean("separate-date-and-notification")) {
+        if (this.settings.get_boolean("separate-date-and-notification")) {
             icon = (count > 0) ? NewNotifications : NoNotifications;
             this._icon.icon_name = icon;
 	}

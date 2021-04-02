@@ -149,7 +149,7 @@ var UserIndicator = new Lang.Class({
 
         this.menu.addMenuItem(switchuser);
         switchuser.connect("activate", () => this._system._systemActions.activateSwitchUser());
-        if (this._system._loginScreenItem.actor.visible) {
+        if (!this._system._loginScreenItem.actor.visible) {
             switchuser.actor.hide();
         }
 

@@ -130,31 +130,32 @@ var NotificationIndicator = new Lang.Class({
     },
     prepareCalendar: function () {
         if (!this.settings.get_boolean("separate-date-and-notification")) {
-		this._calendar = Main.panel.statusArea.dateMenu._calendar;
-		this._date = Main.panel.statusArea.dateMenu._date;
-		this._clockDisplay = Main.panel.statusArea.dateMenu._clockDisplay;
-                this._eventsSection = new imports.ui.dateMenu.EventsSection();
-                this._clocksSection = Main.panel.statusArea.dateMenu._clocksItem;
-                this._weatherSection = Main.panel.statusArea.dateMenu._weatherItem;
-                this._clockIndicatorFormat = new St.Label({
-                    style_class: "clock-display",
-                    visible: false,
-                    y_align: Clutter.ActorAlign.CENTER
-                });
+			this._calendar = Main.panel.statusArea.dateMenu._calendar;
+			this._date = Main.panel.statusArea.dateMenu._date;
+			this._eventsSection = new imports.ui.dateMenu.EventsSection();
+			this._clocksSection = Main.panel.statusArea.dateMenu._clocksItem;
+			this._weatherSection = Main.panel.statusArea.dateMenu._weatherItem;
+			this._clockIndicator = Main.panel.statusArea.dateMenu._clockDisplay;
 
-		this._calendarParent = this._calendar.get_parent();
-		this._dateParent = this._date.get_parent();
-		this._clockDisplayParent = this._clockDisplay.get_parent();
-                this._clocksSectionParent = this._clocksSection.get_parent();
-                this._weatherSectionParent = this._weatherSection.get_parent(); 
+			this._clockIndicatorFormat = new St.Label({
+				  style_class: "clock-display",
+				  visible: false,
+				 y_align: Clutter.ActorAlign.CENTER
+			});
 
-		this._calendarParent.remove_actor(this._calendar);
-		this._dateParent.remove_actor(this._date);
-		this._clockDisplayParent.remove_actor(this._clockDisplay);
-                this._clocksSectionParent.remove_actor(this._clocksSection);
-                this._weatherSectionParent.remove_actor(this._weatherSection); 
 
-        	this.box.add_child(this._clockDisplay, 0);
+
+			this._indicatorParent = this._clockIndicator.get_parent();
+			this._calendarParent = this._calendar.get_parent();
+			this._sectionParent = this._clocksSection.get_parent();
+
+			this._indicatorParent.remove_actor(this._clockIndicator);
+			this._indicatorParent.remove_child(this._date);
+			this._calendarParent.remove_child(this._calendar);
+			this._sectionParent.remove_child(this._clocksSection);
+			this._sectionParent.remove_child(this._weatherSection);
+
+			this.box.add_child(this._clockIndicator, 0);
         	this.box.add_child(this._clockIndicatorFormat, 0);
         }   
     },
@@ -193,7 +194,7 @@ var NotificationIndicator = new Lang.Class({
                           let now = new Date();
                           this._calendar.setDate(now);
                           this._eventsSection.setDate(now);
-                          this._date.setDate(now);
+                          //this._date.setDate(now);
                      }
                 });
 		this._date_changed = this._calendar.connect(
@@ -217,7 +218,7 @@ var NotificationIndicator = new Lang.Class({
                      that.changeFormat();
                      return true;
                 });
-                this._clockDisplay.hide();
+                this._clockIndicator.hide();
                 this._clockIndicatorFormat.show();
                 this._dateFormat = format;
                 this.changeFormat();
@@ -237,26 +238,27 @@ var NotificationIndicator = new Lang.Class({
                      GLib.source_remove(this._formatChanged);
                      this._formatChanged = null;
                 }
-                this._clockDisplay.show();
+                this._clockIndicator.show();
                 this._clockIndicatorFormat.hide();
 	}
     },
     removeCalendar: function () {
         if (!this.settings.get_boolean("separate-date-and-notification")) {
-		this.resetFormat();
-                this._calendar.disconnect(this._date_changed);
+			this.resetFormat();
+			this._calendar.disconnect(this._date_changed);
 
-                this.displayBox.remove_child(this._clocksSection);
-                this.displayBox.remove_child(this._weatherSection);
-		this._vboxd.remove_actor(this._date);
-		this._vboxd.remove_actor(this._calendar);
-		this.box.remove_child(this._clockDisplay);
+			this.displayBox.remove_child(this._clocksSection);
+			this.displayBox.remove_child(this._weatherSection);
+			this._vboxd.remove_actor(this._date);
+			this._vboxd.remove_actor(this._calendar);
+			this.box.remove_child(this._clockIndicator);
 
-		this._calendarParent.add_actor(this._calendar);
-		this._dateParent.add_actor(this._date);
-		this._clockDisplayParent.add_actor(this._clockDisplay);
-                this._clocksSectionParent.add_actor(this._clocksSection);
-                this._weatherSectionParent.add_actor(this._weatherSection); 
+
+			this._indicatorParent.add_actorchild(this._date);
+			this._indicatorParent.add_actor(this._clockIndicator);
+			this._sectionParent.add_child(this._weatherSection);
+			this._sectionParent.add_child(this._clocksSection);
+			this._calendarParent.add_child(this._calendar);
         }
     },
 

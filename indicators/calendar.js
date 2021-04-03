@@ -50,8 +50,8 @@ var CalendarIndicator = new Lang.Class({
         this._sectionParent = this._clocksSection.get_parent();
 
         this._indicatorParent.remove_actor(this._clockIndicator);
-        this._calendarParent.remove_child(this._calendar);
         this._indicatorParent.remove_child(this._date);
+        this._calendarParent.remove_child(this._calendar);
         this._sectionParent.remove_child(this._clocksSection);
         this._sectionParent.remove_child(this._weatherSection);
 
@@ -104,7 +104,7 @@ var CalendarIndicator = new Lang.Class({
                 let now = new Date();
                 this._calendar.setDate(now);
                 this._eventsSection.setDate(now);
-                this._date.setDate(now);
+                //this._date.setDate(now);
             }
         });
         this._date_changed = this._calendar.connect(

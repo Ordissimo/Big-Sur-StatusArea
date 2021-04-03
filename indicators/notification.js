@@ -237,7 +237,7 @@ var MessagesIndicator = new Lang.Class({
 	}
 	else {
 	    if (count > 0) {
-                 this._icon.icon_name = 'media-record-symbolic';
+                 this._icon.icon_name = 'notification-symbolic';
                  this._icon.show();
 	    }
 	    else {

@@ -135,8 +135,8 @@ function applySettings() {
     setup(enabled, center, indicators, "volume", volume);
     setup(enabled, center, indicators, "network", network);
     setup(enabled, center, indicators, "bluetooth", bluetooth);
-    setup(enabled, center, indicators, "notification", notification);
     setup(enabled, center, indicators, "calendar", calendar);
+    setup(enabled, center, indicators, "notification", notification);
     setup(enabled, center, indicators, "nightlight", nightlight);
     setup(enabled, center, indicators, "light", light);
 

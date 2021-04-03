@@ -254,7 +254,7 @@ var NotificationIndicator = new Lang.Class({
 			this.box.remove_child(this._clockIndicator);
 
 
-			this._indicatorParent.add_actorchild(this._date);
+			this._indicatorParent.add_actor(this._date);
 			this._indicatorParent.add_actor(this._clockIndicator);
 			this._sectionParent.add_child(this._weatherSection);
 			this._sectionParent.add_child(this._clocksSection);

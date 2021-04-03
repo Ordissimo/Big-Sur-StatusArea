@@ -133,51 +133,130 @@ var NotificationIndicator = new Lang.Class({
 		this._calendar = Main.panel.statusArea.dateMenu._calendar;
 		this._date = Main.panel.statusArea.dateMenu._date;
 		this._clockDisplay = Main.panel.statusArea.dateMenu._clockDisplay;
-		this._displaysSection = Main.panel.statusArea.dateMenu._displaysSection;
-		this._clockDisplayParent = this._clockDisplay.get_parent();
+                this._eventsSection = new imports.ui.dateMenu.EventsSection();
+                this._clocksSection = Main.panel.statusArea.dateMenu._clocksItem;
+                this._weatherSection = Main.panel.statusArea.dateMenu._weatherItem;
+                this._clockIndicatorFormat = new St.Label({
+                    style_class: "clock-display",
+                    visible: false,
+                    y_align: Clutter.ActorAlign.CENTER
+                });
+
 		this._calendarParent = this._calendar.get_parent();
 		this._dateParent = this._date.get_parent();
-		this._displaysSectionParent = this._displaysSection.get_parent();
-		this._clockDisplayParent.remove_actor(this._clockDisplay);
+		this._clockDisplayParent = this._clockDisplay.get_parent();
+                this._clocksSectionParent = this._clocksSection.get_parent();
+                this._weatherSectionParent = this._weatherSection.get_parent(); 
+
 		this._calendarParent.remove_actor(this._calendar);
 		this._dateParent.remove_actor(this._date);
-		this._displaysSectionParent.remove_actor(this._displaysSection);
-        	this.box.insert_child_at_index(this._clockDisplay, 0);
+		this._clockDisplayParent.remove_actor(this._clockDisplay);
+                this._clocksSectionParent.remove_actor(this._clocksSection);
+                this._weatherSectionParent.remove_actor(this._weatherSection); 
+
+        	this.box.add_child(this._clockDisplay, 0);
+        	this.box.add_child(this._clockIndicatorFormat, 0);
         }   
     },
     addCalendar: function () {
         if (!this.settings.get_boolean("separate-date-and-notification")) {
 		this._vboxd.show();
-		this._vboxd.add_actor(this._date);
-		this._vboxd.add_actor(this._calendar);
-		this._vboxd.add_actor(this._displaysSection);
+                let _dateLabel = new St.Label({ style_class: 'date-label' });
+                this._vboxd.add_actor(_dateLabel);
+                let now = new Date();
+                let dateFormat = Shell.util_translate_time_string(N_("%B %-d %Y"));
+                _dateLabel.set_text(now.toLocaleFormat(dateFormat));
 
-		this.menu.connect("open-state-changed", (menu, isOpen) => {
-		    if (isOpen) {
-                        if (!this.settings.get_boolean("separate-date-and-notification")) {
-		              let now = new Date();
-		              this._date.setDate(now);
-		              this._calendar.setDate(now);
-		              this._eventsSection.setDate(now);
-		              //this._messageList.setDate(now);
-			}
-		    }
-		});
+                this._displaysSection = new St.ScrollView({
+                     style_class: "datemenu-displays-section vfade",
+                     clip_to_allocation: true,
+                     x_expand: true,
+                });
+
+                this._displaysSection.set_policy(St.PolicyType.NEVER, St.PolicyType.EXTERNAL);
+                this._vboxd.add_child(this._displaysSection);
+
+                this.displayBox = new St.BoxLayout({
+                     vertical: true,
+                     x_expand: true,
+                     style_class: "datemenu-displays-box"
+               });
+               this.displayBox.add_child(this._eventsSection);
+               this.displayBox.add_child(this._clocksSection);
+               this.displayBox.add_child(this._weatherSection);
+               this._displaysSection.add_actor(this.displayBox);
+               this._vboxd.add_child(this._date);
+               this._vboxd.add_child(this._calendar);
+
+                this.menu.connect("open-state-changed", (menu, isOpen) => {
+                     if (isOpen) {
+                          let now = new Date();
+                          this._calendar.setDate(now);
+                          this._eventsSection.setDate(now);
+                          this._date.setDate(now);
+                     }
+                });
+		this._date_changed = this._calendar.connect(
+                     "selected-date-changed",
+                     (calendar, date) => {
+                          this._eventsSection.setDate(date);
+                     }
+		);
         }
 	else
 	        this._vboxd.hide();
     },
+    override: function (format) {
+        if (!this.settings.get_boolean("separate-date-and-notification")) {
+                this.resetFormat();
+                if (format == "") {
+                      return
+                }
+                let that = this;
+                this._formatChanged = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, 1, () => {
+                     that.changeFormat();
+                     return true;
+                });
+                this._clockDisplay.hide();
+                this._clockIndicatorFormat.show();
+                this._dateFormat = format;
+                this.changeFormat();
+	}
+    },
+    changeFormat: function () {
+        if (!this.settings.get_boolean("separate-date-and-notification")) {
+               if (this._dateFormat && this._dateFormat != "") {
+                     let date = new Date();
+                     this._clockIndicatorFormat.set_text(date.toLocaleFormat(this._dateFormat));
+               }
+	}
+    },
+    resetFormat: function () {
+        if (!this.settings.get_boolean("separate-date-and-notification")) {
+                if (this._formatChanged) {
+                     GLib.source_remove(this._formatChanged);
+                     this._formatChanged = null;
+                }
+                this._clockDisplay.show();
+                this._clockIndicatorFormat.hide();
+	}
+    },
     removeCalendar: function () {
         if (!this.settings.get_boolean("separate-date-and-notification")) {
+		this.resetFormat();
+                this._calendar.disconnect(this._date_changed);
+
+                this.displayBox.remove_child(this._clocksSection);
+                this.displayBox.remove_child(this._weatherSection);
 		this._vboxd.remove_actor(this._date);
 		this._vboxd.remove_actor(this._calendar);
-		this._vboxd.remove_actor(this._displaysSection);
 		this.box.remove_child(this._clockDisplay);
 
 		this._calendarParent.add_actor(this._calendar);
 		this._dateParent.add_actor(this._date);
-		this._displaysSectionParent.add_actor(this._displaysSection);        
 		this._clockDisplayParent.add_actor(this._clockDisplay);
+                this._clocksSectionParent.add_actor(this._clocksSection);
+                this._weatherSectionParent.add_actor(this._weatherSection); 
         }
     },
 

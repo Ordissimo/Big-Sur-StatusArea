@@ -285,7 +285,7 @@ var IndicatorsPage = new Lang.Class({
 
         this.add(this.separatingBox);
 /////////////////////////////////////////////////////////////////////////////////////
-        this.spacingBox = new FrameBox(_("Indicator dimensions"));
+        this.spacingBox = new FrameBox(_("Indicator Padding"));
 	
         let activateSpacingLabelRow = new FrameBoxRow();
 

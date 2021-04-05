@@ -50,8 +50,8 @@ var CalendarIndicator = new Lang.Class({
         this._sectionParent = this._clocksSection.get_parent();
 
         this._indicatorParent.remove_actor(this._clockIndicator);
-        this._calendarParent.remove_child(this._calendar);
         this._indicatorParent.remove_child(this._date);
+        this._calendarParent.remove_child(this._calendar);
         this._sectionParent.remove_child(this._clocksSection);
         this._sectionParent.remove_child(this._weatherSection);
 
@@ -68,11 +68,24 @@ var CalendarIndicator = new Lang.Class({
         vbox = new St.Widget({ style_class: 'datemenu-calendar-column',
                                layout_manager: boxLayout });
         boxLayout.hookup_style(vbox);
-        hbox.add(vbox)
+        hbox.add(vbox);
 
-        let _dateLabel = new St.Label({ style_class: 'date-label' });
-        vbox.add_actor(_dateLabel);
         let now = new Date();
+        let hbox_date = new St.BoxLayout({
+			vertical: true,style_class: 'datemenu-today-button',
+            x_expand: true,
+            can_focus: true,
+            reactive: false,
+        });
+        vbox.add_actor(hbox_date);
+        
+        let _dayLabel = new St.Label({ style_class: 'day-label',
+                                        x_align: Clutter.ActorAlign.START,
+                                        });
+        hbox_date.add_actor(_dayLabel);
+        _dayLabel.set_text(now.toLocaleFormat('%A'));
+        let _dateLabel = new St.Label({ style_class: 'date-label' });
+        hbox_date.add_actor(_dateLabel);
         let dateFormat = Shell.util_translate_time_string(N_("%B %-d %Y"));
         _dateLabel.set_text(now.toLocaleFormat(dateFormat));
 
@@ -87,7 +100,7 @@ var CalendarIndicator = new Lang.Class({
 
         let displayBox = new St.BoxLayout({
             vertical: true,
-	    x_expand: true,
+	        x_expand: true,
             style_class: "datemenu-displays-box"
         });
         displayBox.add_child(this._eventsSection);
@@ -104,7 +117,7 @@ var CalendarIndicator = new Lang.Class({
                 let now = new Date();
                 this._calendar.setDate(now);
                 this._eventsSection.setDate(now);
-                this._date.setDate(now);
+                //this._date.setDate(now);
             }
         });
         this._date_changed = this._calendar.connect(

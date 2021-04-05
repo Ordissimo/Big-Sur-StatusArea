@@ -8,6 +8,10 @@
             <default>false</default>
             <summary>Activate spacing</summary>
         </key>
+        <key name="user-indicator-left" type="b">
+            <default>false</default>
+            <summary>User Indicator Position</summary>
+        </key>
         <key name="user-icon" type="b">
             <default>true</default>
             <summary>Show an icon instead of name</summary>

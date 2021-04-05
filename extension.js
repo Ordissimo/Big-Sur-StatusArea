@@ -56,6 +56,7 @@ let notification = null;
 
 const CENTER_BOX = Main.panel._centerBox;
 const RIGHT_BOX = Main.panel._rightBox;
+const LEFT_BOX = Main.panel._leftBox;
 
 function enable() {
     Main.panel.statusArea.aggregateMenu.container.hide();
@@ -72,10 +73,15 @@ function enable() {
     nightlight = new NightLightIndicator();
     light = new LightIndicator();
     
+    settings = Convenience.getSettings();
     if (notification)
        Main.panel.addToStatusArea(notification.name, notification, 0, "right");
-    if (user)
-       Main.panel.addToStatusArea(user.name, user, 0, "right");
+    if (user) {
+       if (settings.get_boolean("user-indicator-left"))
+           Main.panel.addToStatusArea(user.name, user, 0, "left");
+       else
+           Main.panel.addToStatusArea(user.name, user, 0, "right");
+    }
     if (calendar)
        Main.panel.addToStatusArea(calendar.name, calendar, 0, "right");
     if (power)
@@ -92,7 +98,6 @@ function enable() {
        Main.panel.addToStatusArea(light.name, light, 0, "right");
 
     // Load Settings
-    settings = Convenience.getSettings();
     menuItems = new MenuItems(settings);
     settingsChanged = new Array();
     let i = 0;
@@ -102,6 +107,7 @@ function enable() {
     settingsChanged[i++] = settings.connect("changed::date-format", changeDateformat);
     settingsChanged[i++] = settings.connect("changed::activate-spacing", applySettings);
     settingsChanged[i++] = settings.connect("changed::separate-date-and-notification", applySettings);
+    settingsChanged[i++] = settings.connect("changed::user-indicator-left", changeApplySettings);
 
     applySettings();
     changeUsername();
@@ -122,6 +128,23 @@ function changeUsericon() {
 function changeDateformat() {
     let dateformat = settings.get_string("date-format");
     calendar.override(dateformat);
+}
+
+
+function changeApplySettings() {
+    if (user) {
+       let userParent = user.container.get_parent();
+       try {
+              userParent.remove_child(user.container);
+       }catch (e) {
+	        log(e);
+       }
+       if (settings.get_boolean("user-indicator-left"))
+           Main.panel.addToStatusArea(user.name, user, 0, "left");
+       else
+           Main.nel.addToStatusArea(user.name, user, 0, "right");
+    }
+    applySettings();
 }
 
 function applySettings() {

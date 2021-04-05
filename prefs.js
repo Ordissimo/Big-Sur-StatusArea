@@ -264,10 +264,30 @@ var SettingsPage = new Lang.Class({
 
         powerFrame.add(showPercentageLabelRow);
 
+        /*
+         * User Settings
+         */
+        let userPositionFrame = new FrameBox(_("User Indicator position"));
+        let userPositionLabelRow = new FrameBoxRow();
+
+        userPositionLabelRow.add(new Gtk.Label({
+            label: _("Allow 'user' To Move To the Left"),
+            xalign: 0,
+            hexpand: true
+        }));
+        let userPositionLabelSwitch = new Gtk.Switch({
+            halign: Gtk.Align.END
+        });
+        this.settings.bind("user-indicator-left", userPositionLabelSwitch, "active", Gio.SettingsBindFlags.DEFAULT);
+        userPositionLabelRow.add(userPositionLabelSwitch);
+
+        userPositionFrame.add(userPositionLabelRow);
+
         // add the frames
         this.add(userFrame);
         this.add(calendarFrame);
         this.add(powerFrame);
+        this.add(userPositionFrame);
     }
 });
 

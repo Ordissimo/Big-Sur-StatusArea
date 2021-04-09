@@ -97,23 +97,24 @@ var NetworkIndicator = new Lang.Class({
     },
     _sync: function () {
         this._arrowIcon.hide();
-        if (this.box.get_width() == 0 && 
+        if (/*this.box.get_width() == 0 && */
             !this._network._primaryIndicator.visible &&
             !this._network._vpnIndicator.visible) {
             this._arrowIcon.show();
         }
+        else {
+			if (!this._rfkill.airplaneMode) {
+				this.box.add_child(this._rfkill._indicator);
+			} else {
+				this.box.remove_child(this._rfkill._indicator);
+			}
 
-        if (!this._rfkill.airplaneMode) {
-            this.box.add_child(this._rfkill._indicator);
-        } else {
-            this.box.remove_child(this._rfkill._indicator);
-        }
-
-        if (this._location._managerProxy != null) {
-            this.box.add_child(this._location._indicator);
-        } else {
-            this.box.remove_child(this._location._indicator);
-        }
+			if (this._location._managerProxy != null) {
+				this.box.add_child(this._location._indicator);
+			} else {
+				this.box.remove_child(this._location._indicator);
+			}
+	    }
     },
     destroy: function () {
         this._rfkill._manager._proxy.disconnect(this._rfkill_properties_changed);

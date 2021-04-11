@@ -35,6 +35,8 @@ var NetworkIndicator = new Lang.Class({
         //this.menu.box.set_width(270);
         this.menu.actor.add_style_class_name("aggregate-menu");
 
+        this._is_rfkill = false;
+        this._is_location = false;
         this._network = null;
         this._rfkill = Main.panel.statusArea.aggregateMenu._rfkill;
 
@@ -100,21 +102,51 @@ var NetworkIndicator = new Lang.Class({
         if (/*this.box.get_width() == 0 && */
             !this._network._primaryIndicator.visible &&
             !this._network._vpnIndicator.visible) {
+            /*if (this._rfkill.airplaneMode)
+	        this._arrowIcon.icon_name = 'airplane-mode-symbolic';
+	    else
+	        this._arrowIcon.icon_name = 'network-wireless-acquiring-symbolic';*/
             this._arrowIcon.show();
+            if (this._is_rfkill == true) {
+	         this.box.remove_child(this._rfkill._indicator);
+                 this._is_rfkill = false;
+	    }
+            if (this._is_location == true) {
+	           this.box.remove_child(this._location._indicator);
+                   this._is_location = false;
+	    }
         }
         else {
 			if (!this._rfkill.airplaneMode) {
-				this.box.add_child(this._rfkill._indicator);
+                                if (this._is_rfkill == false) {
+				       this.box.add_child(this._rfkill._indicator);
+                                       this._is_rfkill = true;
+				}
 			} else {
-				this.box.remove_child(this._rfkill._indicator);
+                                if (this._is_rfkill == true) {
+				       this.box.remove_child(this._rfkill._indicator);
+                                       this._is_rfkill = false;
+				}
 			}
 
 			if (this._location._managerProxy != null) {
-				this.box.add_child(this._location._indicator);
+                                if (this._is_location == false) {
+				       this.box.add_child(this._location._indicator);
+                                       this._is_location = true;
+				}
 			} else {
-				this.box.remove_child(this._location._indicator);
+                                if (this._is_location == true) {
+				       this.box.remove_child(this._location._indicator);
+                                       this._is_location = false;
+				}
 			}
 	    }
+	    log("Number Object : [" + this.box.get_n_children() + "]");
+	    /*
+	    if (this.box.get_n_children() > 2){
+	          var child = this.box.get_child_at_index(1);
+                  this.box.remove_child(child);
+	    }*/
     },
     destroy: function () {
         this._rfkill._manager._proxy.disconnect(this._rfkill_properties_changed);

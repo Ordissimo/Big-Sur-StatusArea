@@ -46,13 +46,17 @@ msgstr "Indicador de energia"
 msgid "Show battery percentage"
 msgstr "Mostrar porcentagem da bateria"
 
-#: ../prefs.js:279
+#: ../prefs.js:283
+msgid "Indicators padding"
+msgstr "Espaçamento dos indicadores"
+
+#: ../prefs.js:283
 msgid "Position and size"
 msgstr "Posição e tamanho"
 
 #: ../prefs.js:283
-msgid "Indicators spacing"
-msgstr "Espaçamento dos indicadores"
+msgid "Unified Calendar/Notification Indicator"
+msgstr "Calendário unificado/indicador de notificação"
 
 #: ../prefs.js:330
 msgid "Indicators Order"

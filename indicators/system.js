@@ -47,9 +47,10 @@ var UserIndicator = new Lang.Class({
             y_align: Clutter.ActorAlign.CENTER,
             style_class: "panel-status-menu-box"
         });
-
-        this._power_gicon = Gio.icon_new_for_string(`${Me.path}/icons/system-shutdown-symbolic.svg`);
-        this._powerIcon = new St.Icon({ icon_name: 'avatar-default-symbolic', style_class: "system-status-icon"});
+	    
+        this._powerIcon = new St.Icon({ 
+	icon_name: 'avatar-default-symbolic', 
+	style_class: "system-status-icon"});
 
         if (this._screencast)
              this.box.add_child(this._screencast);
@@ -139,8 +140,8 @@ var UserIndicator = new Lang.Class({
             y_align: Clutter.ActorAlign.CENTER
         });
         
-        this._switchuser_gicon = Gio.icon_new_for_string(`${Me.path}/icons/switch-user-symbolic.svg`);
-        let switchuser_icon = new St.Icon({ gicon: this._switchuser_gicon });
+        this._switchuser_gicon = 'system-switch-user-symbolic';
+        let switchuser_icon = new St.Icon({ icon_name: this._switchuser_gicon });
         switchuser_icon.icon_size = PANEL_ICON_SIZE;
 
         switchuser.actor.add_actor(switchuser_icon);
@@ -162,8 +163,8 @@ var UserIndicator = new Lang.Class({
             y_align: Clutter.ActorAlign.CENTER
         });
 
-        this._orientation_icon_gicon = Gio.icon_new_for_string(`${Me.path}/icons/orientation-lock-symbolic.svg`);
-        let orientation_icon = new St.Icon({ gicon: this._orientation_icon_gicon });
+        this._orientation_icon_icon = 'rotation-locked-symbolic';;
+        let orientation_icon = new St.Icon({ icon_name: this._orientation_icon_icon });
         orientation_icon.icon_size = PANEL_ICON_SIZE;
 
         orientation.actor.add_actor(orientation_icon);
@@ -176,6 +177,8 @@ var UserIndicator = new Lang.Class({
         //     orientation.actor.hide();
         // }
 
+        this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem()); // SEPARATOR	    
+	    
         ///////////////
         let suspend = new PopupMenu.PopupBaseMenuItem();
 
@@ -228,8 +231,12 @@ var UserIndicator = new Lang.Class({
             text: _("Power Off"),
             y_align: Clutter.ActorAlign.CENTER
         });
-        
-        let power_icon = new St.Icon({ gicon: this._power_gicon });
+
+	let power_icon = new St.Icon({
+            icon_name: "system-shutdown-symbolic",
+            style_class: "system-status-icon",
+            icon_size: PANEL_ICON_SIZE
+        });
         power_icon.icon_size = PANEL_ICON_SIZE;
 
         power.actor.add_actor(power_icon);

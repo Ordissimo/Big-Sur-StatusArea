@@ -75,10 +75,7 @@ var NightLightIndicator = new Lang.Class({
             }
         });
 
-        //IS THIS NEEDED?
-        // sliderItem.add(this._slider, {
-        //     expand: true
-        // });
+        sliderItem.actor.add(this._slider);
 
         this.menu.box.add_child(this._label);
         this.menu.addMenuItem(sliderItem);
@@ -125,14 +122,13 @@ var NightLightIndicator = new Lang.Class({
         this._sync();
     },
     _sync: function () {
-        let featureEnabled = this._settings.get_boolean("night-light-enabled");
+	let featureEnabled = this._settings.get_boolean("night-light-enabled");
         this.turnItem.label.set_text(featureEnabled ? _("Turn Off") : _("Turn On"));
-        let visible = this._nightLight._proxy.NightLightActive;
         let disabled = this._nightLight._proxy.DisabledUntilTomorrow || !this._nightLight._proxy.NightLightActive;
         this._label.set_text(disabled ? _("Night Light Disabled") : _("Night Light On"));
         this._disableItem.label.text = disabled ? _("Resume") : _("Disable Until Tomorrow");
         this._disableItem.actor.visible = featureEnabled;
-        this.visible = visible;
+        this.visible = true;
     },
     destroy: function () {
         this._nightLight._proxy.disconnect(this._properties_changed);

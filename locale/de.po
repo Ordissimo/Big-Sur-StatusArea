@@ -51,8 +51,12 @@ msgid "Position and size"
 msgstr "Position und Größe"
 
 #: ../prefs.js:283
-msgid "Indicators spacing"
+msgid "Indicators padding"
 msgstr "Abstand zwischen den Anzeigern"
+
+#: ../prefs.js:283
+msgid "Unified Calendar/Notification Indicator"
+msgstr "Unified Kalender/Benachrichtigung Indikator."
 
 #: ../prefs.js:330
 msgid "Indicators Order"

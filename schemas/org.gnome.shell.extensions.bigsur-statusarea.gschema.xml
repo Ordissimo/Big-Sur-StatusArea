@@ -1,5 +1,9 @@
 <schemalist gettext-domain="gnome-shell-extensions">
     <schema id="org.gnome.shell.extensions.bigsur-statusarea" path="/org/gnome/shell/extensions/bigsur-statusarea/">
+        <key name="separate-date-and-notification" type="b">
+            <default>true</default>
+            <summary>Separate date and notification</summary>
+        </key>
         <key name="activate-spacing" type="b">
             <default>false</default>
             <summary>Activate spacing</summary>

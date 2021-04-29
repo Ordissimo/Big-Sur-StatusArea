@@ -46,6 +46,14 @@ var VolumeIndicator = new Lang.Class({
 
         let settings = new PopupMenu.PopupMenuItem(_("Volume Settings"));
         settings.connect("activate", () => this._openApp("gnome-sound-panel.desktop"));
+        this.menu.connect('open-state-changed', (menu, isPoppedUp) => {
+            if (isPoppedUp) {
+                let children = this._volume._volumeMenu._getMenuItems();
+                for (let i = 0; i < children.length; i++) {
+                    children[i].show();
+                }
+            }
+        }, this._volume);
         this.menu.addMenuItem(settings);
         // this.menu.box.connect("scroll-event", (actor, event) => this.onScroll(event));
         //this.menu.box.connect("scroll-event", (actor, event) => this._volume._volumeMenu.scrollOutput(event));

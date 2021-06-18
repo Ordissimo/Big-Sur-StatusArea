@@ -102,19 +102,17 @@ var NetworkIndicator = new Lang.Class({
         if (/*this.box.get_width() == 0 && */
             !this._network._primaryIndicator.visible &&
             !this._network._vpnIndicator.visible) {
-            /*if (this._rfkill.airplaneMode)
-	        this._arrowIcon.icon_name = 'airplane-mode-symbolic';
-	    else
-	        this._arrowIcon.icon_name = 'network-wireless-acquiring-symbolic';*/
-            this._arrowIcon.show();
+
             if (this._is_rfkill == true) {
 	         this.box.remove_child(this._rfkill._indicator);
                  this._is_rfkill = false;
 	    }
             if (this._is_location == true) {
-	           this.box.remove_child(this._location._indicator);
-                   this._is_location = false;
+	         this.box.remove_child(this._location._indicator);
+                 this._is_location = false;
 	    }
+            if (this._is_location == false && this._is_rfkill == false)
+                 this._arrowIcon.show();
         }
         else {
 			if (!this._rfkill.airplaneMode) {

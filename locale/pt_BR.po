@@ -218,3 +218,13 @@ msgstr "Notificação"
 
 msgid "User"
 msgstr "Usuário"
+
+msgid "Indicator padding"
+msgstr "Estofamento do Indicador"
+
+msgid "Enable toggle for custom indicator padding"
+msgstr "Habilitar alternância para preenchimento de indicadores personalizados"
+
+msgid "Enable toggle for individual calendar and notification indicators (gnome-shell restart required for effect)"
+msgstr "Habilitar alternância para o calendário individual e indicadores de notificação (reinício de gnome-shell necessário para efeito)"
+

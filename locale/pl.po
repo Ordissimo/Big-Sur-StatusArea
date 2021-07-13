@@ -210,3 +210,13 @@ msgstr "Power"
 
 msgid "User Indicator"
 msgstr "Wskaźnik użytkownika"
+
+msgid "Indicator padding"
+msgstr "Przekładka wskaźnika"
+
+msgid "Enable toggle for custom indicator padding"
+msgstr "Włącz przełącznik dla niestandardowego wypełnienia wskaźnika"
+
+msgid "Enable toggle for individual calendar and notification indicators (gnome-shell restart required for effect)"
+msgstr "Włączenie przełącznika dla indywidualnego kalendarza i wskaźników powiadomień (wymagany restart gnome-shell dla efektu)"
+

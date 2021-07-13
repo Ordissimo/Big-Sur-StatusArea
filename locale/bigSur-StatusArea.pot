@@ -222,3 +222,11 @@ msgstr ""
 msgid "User"
 msgstr ""
 
+msgid "Indicator padding"
+msgstr ""
+
+msgid "Enable toggle for custom indicator padding"
+msgstr ""
+
+msgid "Enable toggle for individual calendar and notification indicators (gnome-shell restart required for effect)"
+msgstr ""

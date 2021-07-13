@@ -221,6 +221,15 @@ msgstr "Notification"
 msgid "User"
 msgstr "Utilisateur"
 
+msgid "Indicator padding"
+msgstr "Padding des Indicateurs"
+
+msgid "Enable toggle for custom indicator padding"
+msgstr "Activation le toggle pour le padding personnalisé des indicateurs"
+
+msgid "Enable toggle for individual calendar and notification indicators (gnome-shell restart required for effect)"
+msgstr "Activation du toggle pour les indicateurs de calendrier et de notification individuels (le redémarrage de gnome-shell est nécessaire pour que cela fonctionne)"
+
 #~ msgid "Night Light Indicator"
 #~ msgstr "Indicateur mode nuit"
 

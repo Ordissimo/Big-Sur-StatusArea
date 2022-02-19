@@ -1,0 +1,243 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Adnan Bukvic <adnanbukvic862@gmail.com>, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-02-19 21:50+0100\n"
+"PO-Revision-Date: 2022-02-19 21:50+0100\n"
+"Last-Translator: Adnan Bukvic <adnanbukvic862@gmail.com>\n"
+"Language-Team: \n"
+"Language: sv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.4\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../prefs.js:184
+msgid "Settings"
+msgstr "Inställningar"
+
+#: ../prefs.js:193
+msgid "User/System Indicator"
+msgstr "Användare/System -indikator"
+
+#: ../prefs.js:197
+msgid "Show an icon instead of name"
+msgstr "Visa en ikon istället för ett namn"
+
+#: ../prefs.js:214
+msgid "Calendar Indicator"
+msgstr "Kalenderindikator"
+
+#: ../prefs.js:218
+msgid "Change date format"
+msgstr "Ändra tid/datum format"
+
+#: ../prefs.js:251
+msgid "Power Indicator"
+msgstr "Strömindikator"
+
+#: ../prefs.js:255
+msgid "Show battery percentage"
+msgstr "Visa batteriprocent"
+
+#: ../prefs.js:279
+msgid "Position and size"
+msgstr "Plats och storlek"
+
+#: ../prefs.js:283
+msgid "Indicators padding"
+msgstr "Mellanrum för indiatorer"
+
+#: ../prefs.js:283
+msgid "Unified Calendar/Notification Indicator"
+msgstr "Sammansatt kalender/notis indikator"
+
+#: ../prefs.js:330
+msgid "Indicators Order"
+msgstr "Ikonordning"
+
+#: ../prefs.js:350
+msgid "Left"
+msgstr "Vänster"
+
+#: ../prefs.js:351
+msgid "Center"
+msgstr "Mitten"
+
+#: ../prefs.js:404
+msgid "Top to bottom -> Left to right"
+msgstr "Upp till ner -> Vänster till höger"
+
+#: ../prefs.js:409
+msgid "Reset Indicators"
+msgstr "Återställ indikator"
+
+#: ../prefs.js:415
+msgid "Reset"
+msgstr "Återställ"
+
+#: ../prefs.js:452
+msgid "About"
+msgstr "Om"
+
+#: ../prefs.js:484
+msgid "Version: "
+msgstr "Version: "
+
+#: ../prefs.js:493
+msgid "If something breaks, don't hesitate to leave a comment at "
+msgstr ""
+"Om något går sönder, vänligen lämna en kommentar på "
+
+#: ../prefs.js:497
+msgid "Webpage/Github"
+msgstr "Webbida/GitHub"
+
+#: ../prefs.js:508
+msgid "This extension is a fork of Extend Panel Menu, thanks to julio641742"
+msgstr ""
+"Det här tillägget är en fork av Extend Panel Menu, tack till julio641742"
+
+#: ../indicators/bluetooth.js:70
+msgid "Bluetooth Settings"
+msgstr "Bluetoothinställingar"
+
+#: ../indicators/calendar.js:101
+msgid "No Events"
+msgstr "Inga händelser"
+
+#: ../indicators/calendar.js:129
+msgid "Date Time Settings"
+msgstr "Datum och tid intälllningar"
+
+#: ../indicators/network.js:79
+msgid "Network Settings"
+msgstr "Nätverksinställningar"
+
+#: ../indicators/nightlight.js:70
+msgid "Temperature"
+msgstr "Tempratur"
+
+#: ../indicators/nightlight.js:88 ../indicators/nightlight.js:132
+msgid "Resume"
+msgstr "Fortsätt"
+
+#: ../indicators/nightlight.js:92 ../indicators/nightlight.js:128
+msgid "Turn Off"
+msgstr "Stäng av"
+
+#: ../indicators/nightlight.js:96
+msgid "Display Settings"
+msgstr "Skärminställningar"
+
+#: ../indicators/nightlight.js:128
+msgid "Turn On"
+msgstr "Aktivera"
+
+#: ../indicators/nightlight.js:131
+msgid "Night Light Disabled"
+msgstr "Nattljus är av"
+
+#: ../indicators/nightlight.js:131
+msgid "Night Light On"
+msgstr "Nattljus är på"
+
+#: ../indicators/nightlight.js:132
+msgid "Disable Until Tomorrow"
+msgstr "Stäng av tills imorgon"
+
+#: ../indicators/power.js:64
+msgid "Power Settings"
+msgstr "Ström intällningar"
+
+#: ../indicators/system.js:76
+msgid "Log Out"
+msgstr "Logga ut"
+
+#: ../indicators/system.js:83
+msgid "Account Settings"
+msgstr "Användarintällningar"
+
+#: ../indicators/system.js:94
+msgid "System Settings"
+msgstr "Systemintällningar"
+
+#: ../indicators/system.js:114
+msgid "Lock"
+msgstr "Lås"
+
+#: ../indicators/system.js:136
+msgid "Switch User"
+msgstr "Byt användare"
+
+#: ../indicators/system.js:159
+msgid "Orientation Lock"
+msgstr "Riktiningslås"
+
+#: ../indicators/system.js:180
+msgid "Suspend"
+msgstr "Viloläge"
+
+#: ../indicators/system.js:201
+msgid "Power Off"
+msgstr "Stäng av"
+
+#: ../indicators/system.js:201
+msgid "Restart"
+msgstr "Starta om"
+
+#: ../indicators/volume.js:66
+msgid "Volume Settings"
+msgstr "Ljusintällningar"
+
+#: schemas.xml
+msgid "Calendar"
+msgstr "Kalender"
+
+msgid "Night Light"
+msgstr "Nattljus"
+
+msgid "Light"
+msgstr "Ljus"
+
+msgid "Volume"
+msgstr "Volym"
+
+msgid "Network"
+msgstr "Nätverk"
+
+msgid "Power"
+msgstr "Ström"
+
+msgid "Notification"
+msgstr "Notis"
+
+msgid "User"
+msgstr "Användare"
+
+msgid "Indicator padding"
+msgstr "Mellanrum för indikatorer"
+
+msgid "Enable toggle for custom indicator padding"
+msgstr "Akrivera för manuellt välja mellanrum mellan indikatorer"
+
+msgid "Enable toggle for individual calendar and notification indicators (gnome-shell restart required for effect)"
+msgstr "Aktivera för att använda individuella kalender och notis indikatorer (en omstart av gnome shell krävs)"
+
+#~ msgid "Night Light Indicator"
+#~ msgstr "Nattljus"
+
+#~ msgid "Volume Indicator"
+#~ msgstr "Voylndikator"
+
+#~ msgid "Network Indicator"
+#~ msgstr "Nätverksindikator"
+
+#~ msgid "User Indicator"
+#~ msgstr "Användarindikator"

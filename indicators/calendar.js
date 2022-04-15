@@ -16,8 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { St, Gtk, GLib, Clutter, Gio, Shell } = imports.gi;
-const GObject = imports.gi.GObject;
+const {
+    Clutter, Gtk, Gio, GLib, GnomeDesktop,
+    GObject, GWeather, Pango, Shell, St,
+} = imports.gi;
+
 const Main = imports.ui.main;
 const PopupMenu = imports.ui.popupMenu;
 const Gettext = imports.gettext.domain("bigSur-StatusArea");
@@ -80,16 +83,17 @@ class CalendarIndicator extends CustomButton {
             reactive: false,
         });
         vbox.add_actor(hbox_date);
-        
-        this.dayLabel = new St.Label({ style_class: 'day-label',
-                                        x_align: Clutter.ActorAlign.START,
-                                        });
-        hbox_date.add_actor(this.dayLabel);
-        this.dayLabel.set_text(now.toLocaleFormat('%A'));
-        this.dateLabel = new St.Label({ style_class: 'date-label' });
-        hbox_date.add_actor(this.dateLabel);
+        this._dayLabel = new St.Label({
+            style_class: 'day-label',
+            x_align: Clutter.ActorAlign.START,
+        });
+        this._dayLabel.set_text(now.toLocaleFormat('%A'));
+        hbox_date.add_child(this._dayLabel);
+
+        this._dateLabel = new St.Label({ style_class: 'date-label' });
+        hbox_date.add_child(this._dateLabel);
         let dateFormat = Shell.util_translate_time_string(N_("%B %-d %Y"));
-        this.dateLabel.set_text(now.toLocaleFormat(dateFormat));
+        this._dateLabel.set_text(now.toLocaleFormat(dateFormat));
 
         this._displaysSection = new St.ScrollView({
             style_class: "datemenu-displays-section vfade",
@@ -109,7 +113,6 @@ class CalendarIndicator extends CustomButton {
         displayBox.add_child(this._clocksSection);
         displayBox.add_child(this._weatherSection);
         this._displaysSection.add_actor(displayBox);
-        vbox.add_child(this._date);
         vbox.add_child(this._calendar);
 
         this.menu.box.add(hbox);
@@ -119,10 +122,16 @@ class CalendarIndicator extends CustomButton {
                 let now = new Date();
                 this._calendar.setDate(now);
                 this._eventsSection.setDate(now);
-                this.dayLabel.set_text(now.toLocaleFormat('%A'));
+                this._date.setDate(now);
+                this._dayLabel.set_text(now.toLocaleFormat('%A'));
+
+                /* Translators: This is the date format to use when the calendar popup is
+                 * shown - it is shown just below the time in the top bar (e.g.,
+                 * "Tue 9:29 AM").  The string itself should become a full date, e.g.,
+                 * "February 17 2015".
+                 */
                 let dateFormat = Shell.util_translate_time_string(N_("%B %-d %Y"));
-                this.dateLabel.set_text(now.toLocaleFormat(dateFormat));
-                //this._date.setDate(now);
+                this._dateLabel.set_text(now.toLocaleFormat(dateFormat));
             }
         });
         this._date_changed = this._calendar.connect(
